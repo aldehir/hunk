@@ -7,6 +7,7 @@ All notable user-visible changes to Hunk are documented in this file.
 ### Added
 
 - Added a `catppuccin-mocha` built-in theme.
+- Added a Windows fallback for the global config and state directories so PowerShell/cmd shells without `HOME` resolve to `%USERPROFILE%\.config\hunk` instead of skipping the user config layer.
 
 ### Changed
 

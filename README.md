@@ -104,7 +104,7 @@ Hunk is optimized for reviewing a full changeset interactively.
 
 You can persist preferences to a config file:
 
-- `~/.config/hunk/config.toml`
+- `~/.config/hunk/config.toml` (on Windows: `%USERPROFILE%\.config\hunk\config.toml`)
 - `.hunk/config.toml`
 
 Example:

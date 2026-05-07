@@ -14,17 +14,34 @@ function createTempRoot(prefix: string) {
 
 describe("paths", () => {
   test("resolves XDG config and state paths", () => {
-    const env = { XDG_CONFIG_HOME: "/tmp/xdg-home" } as NodeJS.ProcessEnv;
+    const xdgHome = join("/tmp", "xdg-home");
+    const env = { XDG_CONFIG_HOME: xdgHome } as NodeJS.ProcessEnv;
 
-    expect(resolveGlobalConfigPath(env)).toBe("/tmp/xdg-home/hunk/config.toml");
-    expect(resolveHunkStatePath(env)).toBe("/tmp/xdg-home/hunk/state.json");
+    expect(resolveGlobalConfigPath(env)).toBe(join(xdgHome, "hunk", "config.toml"));
+    expect(resolveHunkStatePath(env)).toBe(join(xdgHome, "hunk", "state.json"));
   });
 
   test("falls back to HOME for config and state paths", () => {
-    const env = { HOME: "/tmp/home" } as NodeJS.ProcessEnv;
+    const home = join("/tmp", "home");
+    const env = { HOME: home } as NodeJS.ProcessEnv;
 
-    expect(resolveGlobalConfigPath(env)).toBe("/tmp/home/.config/hunk/config.toml");
-    expect(resolveHunkStatePath(env)).toBe("/tmp/home/.config/hunk/state.json");
+    expect(resolveGlobalConfigPath(env)).toBe(join(home, ".config", "hunk", "config.toml"));
+    expect(resolveHunkStatePath(env)).toBe(join(home, ".config", "hunk", "state.json"));
+  });
+
+  test("falls back to USERPROFILE on Windows shells without HOME", () => {
+    const userProfile = "C:\\Users\\Alde";
+    const env = { USERPROFILE: userProfile } as NodeJS.ProcessEnv;
+
+    expect(resolveGlobalConfigPath(env)).toBe(join(userProfile, ".config", "hunk", "config.toml"));
+    expect(resolveHunkStatePath(env)).toBe(join(userProfile, ".config", "hunk", "state.json"));
+  });
+
+  test("prefers HOME over USERPROFILE when both are set", () => {
+    const home = join("/tmp", "home");
+    const env = { HOME: home, USERPROFILE: "C:\\Users\\Alde" } as NodeJS.ProcessEnv;
+
+    expect(resolveGlobalConfigPath(env)).toBe(join(home, ".config", "hunk", "config.toml"));
   });
 
   test("locates the bundled Hunk review skill from source", () => {

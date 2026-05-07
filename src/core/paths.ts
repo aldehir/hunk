@@ -13,6 +13,13 @@ export function resolveUserConfigDir(env: NodeJS.ProcessEnv = process.env) {
     return join(env.HOME, ".config");
   }
 
+  // Windows shells (PowerShell, cmd) do not set HOME, but USERPROFILE points at
+  // the user's home directory. Mirror the dotfile layout so cross-platform users
+  // see the same C:\Users\<name>\.config\hunk path they use elsewhere.
+  if (env.USERPROFILE) {
+    return join(env.USERPROFILE, ".config");
+  }
+
   return undefined;
 }
 
