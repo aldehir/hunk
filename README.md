@@ -110,7 +110,7 @@ You can persist preferences to a config file:
 Example:
 
 ```toml
-theme = "graphite"   # graphite, midnight, paper, ember
+theme = "graphite"   # graphite, midnight, paper, ember, catppuccin-mocha
 mode = "auto"        # auto, split, stack
 exclude_untracked = false
 line_numbers = true

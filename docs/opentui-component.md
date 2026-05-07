@@ -104,7 +104,7 @@ if (!metadata) {
 | `diff`              | `HunkDiffFile`                                   | `undefined`  | File to render. When omitted, the component shows an empty-state message. |
 | `layout`            | `"split" \| "stack"`                             | `"split"`    | Chooses side-by-side or stacked rendering.                                |
 | `width`             | `number`                                         | —            | Required content width in terminal columns.                               |
-| `theme`             | `"graphite" \| "midnight" \| "paper" \| "ember"` | `"graphite"` | Matches Hunk's built-in themes.                                           |
+| `theme`             | `"graphite" \| "midnight" \| "paper" \| "ember" \| "catppuccin-mocha"` | `"graphite"` | Matches Hunk's built-in themes.                                           |
 | `showLineNumbers`   | `boolean`                                        | `true`       | Toggles line-number columns.                                              |
 | `showHunkHeaders`   | `boolean`                                        | `true`       | Toggles `@@ ... @@` hunk header rows.                                     |
 | `wrapLines`         | `boolean`                                        | `false`      | Wraps long lines instead of clipping horizontally.                        |
