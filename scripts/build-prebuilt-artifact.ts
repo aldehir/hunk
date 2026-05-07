@@ -36,7 +36,9 @@ const repoRoot = path.resolve(import.meta.dir, "..");
 const options = parseArgs(process.argv.slice(2));
 const spec = getHostPlatformPackageSpec();
 const binaryName = binaryFilenameForSpec(spec);
-const compiledBinary = path.join(repoRoot, "dist", "hunk");
+// Bun appends .exe when --compile runs on a Windows host; the artifact spec's
+// binary filename already encodes that suffix, so reuse it here.
+const compiledBinary = path.join(repoRoot, "dist", binaryName);
 const outputRoot = path.resolve(options.outputRoot ?? releaseArtifactsDir(repoRoot));
 const outputDir = path.join(outputRoot, spec.packageName);
 
